@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stok Warung Pintar</title>
+<title>Stok Warung</title>
 
 <link rel="manifest" href="manifest.json">
 
@@ -11,40 +11,49 @@
 body {
   font-family: 'Segoe UI', sans-serif;
   background: #eef2f7;
-  padding: 15px;
   margin: 0;
+  padding: 10px;
 }
 
 h2 {
   text-align: center;
-  color: #333;
+  font-size: 20px;
 }
 
 h3 {
-  margin-top: 20px;
-  color: #444;
+  margin-top: 15px;
+  font-size: 16px;
 }
 
 .card {
-  background: #ffffff;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 10px;
 }
 
+/* Biar tidak terlalu lebar di HP */
+.container {
+  max-width: 500px;
+  margin: auto;
+}
+
+/* Input rapi */
 input, select {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-top: 8px;
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 14px;
 }
 
+/* Tombol besar (enak ditekan jempol) */
 button {
-  margin-top: 12px;
-  padding: 12px;
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
   border-radius: 10px;
   background: #28a745;
   color: white;
@@ -52,34 +61,35 @@ button {
   border: none;
 }
 
+/* List */
 .item {
   background: white;
-  padding: 12px;
-  border-radius: 12px;
-  margin-top: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
+/* Stok besar */
 .stok {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   color: #28a745;
 }
 
+/* RESPONSIVE (HP banget) */
 .row {
   display: flex;
-  gap: 10px;
-}
-
-.row input {
-  flex: 1;
+  flex-direction: column; /* penting biar tidak berantakan */
 }
 </style>
 </head>
 
 <body>
 
-<h2>📦 Stok Barang Warung</h2>
+<div class="container">
+
+<h2>📦 Stok Warung</h2>
 
 <div class="card">
 
@@ -103,6 +113,8 @@ button {
 
 <h3>📜 Riwayat</h3>
 <div id="riwayat"></div>
+
+</div>
 
 <script>
 let data = JSON.parse(localStorage.getItem("stok")) || [];
@@ -138,10 +150,8 @@ function render() {
     riwayat.innerHTML += `
       <div class="item">
         <b>${item.nama}</b><br>
-        Jenis: ${item.jenis}<br>
-        Tanggal: ${item.tanggal}<br>
-        Jumlah: ${item.jumlah}<br>
-        Tipe: ${item.tipe}
+        ${item.jenis} | ${item.tanggal}<br>
+        ${item.tipe} : ${item.jumlah}
       </div>
     `;
   });
