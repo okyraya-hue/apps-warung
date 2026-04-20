@@ -1,215 +1,330 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stok Warung</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stok Warung UMKM</title>
 
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json" />
 
 <style>
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f5f7fb;
-  margin: 0;
-  padding: 12px;
+:root{
+  --primary:#1f5e7a;        /* biru UMKM */
+  --primary-2:#2f7fa3;
+  --accent:#28a745;         /* hijau */
+  --danger:#dc3545;         /* merah */
+  --bg:#f3f6fb;
+  --card:#ffffff;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --radius:16px;
 }
 
-.container {
-  max-width: 500px;
-  margin: auto;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  color:var(--text);
+  background:var(--bg);
 }
 
-h2 { text-align: center; }
-
-.card {
-  background: #fff;
-  padding: 15px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+/* ===== HEADER / HERO ===== */
+.hero{
+  background: radial-gradient(1200px 300px at 50% -50%, #ffffffaa, transparent),
+              linear-gradient(180deg, var(--primary), var(--primary-2));
+  color:#fff;
+  padding:22px 16px 26px;
+  border-bottom-left-radius:22px;
+  border-bottom-right-radius:22px;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+  text-align:center;
+}
+.hero img{
+  width:120px;
+  height:auto;
+  display:block;
+  margin:0 auto 8px;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,.25));
+}
+.hero h1{
+  margin:6px 0 0;
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:.2px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
+/* ===== CONTAINER ===== */
+.container{
+  max-width:520px;
+  margin:-18px auto 20px; /* overlap ke hero */
+  padding:0 12px;
 }
 
-@media (min-width: 500px) {
-  .grid {
-    grid-template-columns: 1fr 1fr;
-  }
+/* ===== CARD ===== */
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:14px;
+  box-shadow:0 10px 20px rgba(0,0,0,.08);
 }
 
-.full {
-  grid-column: span 2;
+/* ===== FORM GRID ===== */
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+}
+@media(min-width:500px){
+  .grid{ grid-template-columns:1fr 1fr; }
+}
+.full{ grid-column:span 2; }
+
+/* ===== INPUT ===== */
+input, select{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:1px solid #e5e7eb;
+  background:#fafafa;
+  font-size:15px;
+  outline:none;
+  transition:.15s ease;
+}
+input:focus, select:focus{
+  border-color:var(--primary-2);
+  box-shadow:0 0 0 3px rgba(47,127,163,.12);
+  background:#fff;
 }
 
-input, select {
-  width: 100%;
-  padding: 14px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  font-size: 15px;
-  box-sizing: border-box;
+/* ===== BUTTONS ===== */
+.btn{
+  padding:14px;
+  border-radius:14px;
+  border:none;
+  font-size:16px;
+  color:#fff;
+  cursor:pointer;
+  transition:.15s ease;
+}
+.btn:active{ transform:scale(.98); }
+
+.btn-primary{
+  background:linear-gradient(135deg, #2fbf63, #1f9a4f);
+  box-shadow:0 8px 16px rgba(40,167,69,.35);
+}
+.btn-secondary{
+  background:#e5e7eb;
+  color:#374151;
+}
+.btn-danger{
+  background:var(--danger);
 }
 
-button {
-  padding: 14px;
-  border-radius: 12px;
-  color: white;
-  font-size: 16px;
-  border: none;
+/* ===== SECTION TITLES ===== */
+.section{
+  margin-top:16px;
+}
+.section h3{
+  margin:10px 2px;
+  font-size:16px;
 }
 
-.btn-simpan { background: #28a745; }
-.btn-reset { background: #6c757d; }
-.btn-hapus { background: red; }
-
-.item {
-  background: white;
-  padding: 12px;
-  border-radius: 12px;
-  margin-top: 10px;
+/* ===== ITEM CARD ===== */
+.item{
+  background:#fff;
+  border-radius:14px;
+  padding:12px;
+  margin-top:10px;
+  box-shadow:0 6px 14px rgba(0,0,0,.06);
+  animation:fadeIn .25s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(6px)}
+  to{opacity:1; transform:translateY(0)}
 }
 
-.stok {
-  font-weight: bold;
-  color: green;
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
 }
 
-footer {
-  text-align: center;
-  font-size: 12px;
-  margin-top: 20px;
-  color: #777;
+.name{ font-weight:700; }
+
+/* badge stok */
+.badge{
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:13px;
+}
+.badge.ok{
+  background:#e7f7ee;
+  color:#1f9a4f;
+}
+.badge.low{
+  background:#fde8ea;
+  color:#c0392b;
+}
+
+/* footer */
+footer{
+  text-align:center;
+  font-size:12px;
+  color:var(--muted);
+  margin:18px 0 8px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
-<h2>📦 Stok Warung</h2>
-
-<div class="card">
-  <div class="grid">
-    <input id="nama" placeholder="Nama Barang">
-    <input id="jenis" placeholder="Jenis Barang">
-
-    <select id="tipe" class="full">
-      <option value="masuk">Barang Masuk</option>
-      <option value="keluar">Barang Keluar</option>
-    </select>
-
-    <input id="jumlah" type="number" placeholder="Jumlah" class="full">
-
-    <button onclick="tambahData()" class="full btn-simpan">Simpan</button>
-    <button onclick="resetData()" class="full btn-reset">Reset Semua</button>
-  </div>
+<!-- HERO -->
+<div class="hero">
+  <img src="logo.png" alt="Logo UMKM" />
+  <h1>Stok Warung</h1>
 </div>
 
-<h3>📊 Stok</h3>
-<div id="stokList"></div>
+<div class="container">
 
-<h3>📜 Riwayat</h3>
-<div id="riwayat"></div>
+  <!-- FORM -->
+  <div class="card">
+    <div class="grid">
+      <input id="nama" placeholder="Nama Barang" />
+      <input id="jenis" placeholder="Jenis Barang" />
 
-<footer>
-  Web Stok Warung UMKM<br>
-  Oktavian Alyandra, S.Kom
-</footer>
+      <select id="tipe" class="full">
+        <option value="masuk">Barang Masuk</option>
+        <option value="keluar">Barang Keluar</option>
+      </select>
+
+      <input id="jumlah" type="number" placeholder="Jumlah" class="full" />
+
+      <button class="btn btn-primary full" onclick="tambahData()">Simpan</button>
+      <button class="btn btn-secondary full" onclick="resetData()">Reset Semua</button>
+    </div>
+  </div>
+
+  <!-- STOK -->
+  <div class="section">
+    <h3>📊 Stok</h3>
+    <div id="stokList"></div>
+  </div>
+
+  <!-- RIWAYAT -->
+  <div class="section">
+    <h3>📜 Riwayat</h3>
+    <div id="riwayat"></div>
+  </div>
+
+  <footer>
+    Web Stok Warung UMKM<br/>
+    Oktavian Alyandra, S.Kom
+  </footer>
 
 </div>
 
 <script>
 let data = JSON.parse(localStorage.getItem("stok")) || [];
 
-function hitungStok() {
-  let stok = {};
-  data.forEach(item => {
-    if (!stok[item.nama]) stok[item.nama] = 0;
-    if (item.tipe === "masuk") stok[item.nama] += item.jumlah;
-    else stok[item.nama] -= item.jumlah;
+function hitungStok(){
+  const stok = {};
+  data.forEach(i=>{
+    if(!stok[i.nama]) stok[i.nama]=0;
+    if(i.tipe==="masuk") stok[i.nama]+=i.jumlah;
+    else stok[i.nama]-=i.jumlah;
   });
   return stok;
 }
 
-function render() {
-  let stokData = hitungStok();
-  let stokList = document.getElementById("stokList");
-  let riwayat = document.getElementById("riwayat");
+function render(){
+  const stokData = hitungStok();
+  const stokList = document.getElementById("stokList");
+  const riwayat = document.getElementById("riwayat");
 
   stokList.innerHTML = "";
   riwayat.innerHTML = "";
 
-  for (let nama in stokData) {
+  Object.keys(stokData).forEach(nama=>{
+    const val = stokData[nama];
+    const cls = val>0 ? "ok" : "low";
     stokList.innerHTML += `
       <div class="item">
-        <b>${nama}</b><br>
-        <span class="stok">Stok: ${stokData[nama]}</span>
+        <div class="row">
+          <div class="name">${nama}</div>
+          <div class="badge ${cls}">Stok: ${val}</div>
+        </div>
       </div>
     `;
-  }
+  });
 
-  data.slice().reverse().forEach((item, index) => {
+  data.slice().reverse().forEach((i, idx)=>{
+    const realIndex = data.length-1-idx;
     riwayat.innerHTML += `
       <div class="item">
-        <b>${item.nama}</b><br>
-        ${item.jenis} • ${item.tanggal}<br>
-        ${item.tipe} : ${item.jumlah}<br><br>
-        <button onclick="hapusItem(${data.length - 1 - index})" class="btn-hapus">Hapus</button>
+        <div class="name">${i.nama}</div>
+        <div style="color:#6b7280; margin-top:4px;">
+          ${i.jenis} • ${i.tanggal}
+        </div>
+        <div style="margin-top:6px;">
+          ${i.tipe} : ${i.jumlah}
+        </div>
+        <button class="btn btn-danger" style="margin-top:8px"
+          onclick="hapusItem(${realIndex})">Hapus</button>
       </div>
     `;
   });
 }
 
-function tambahData() {
-  let nama = document.getElementById("nama").value;
-  let jenis = document.getElementById("jenis").value;
-  let tipe = document.getElementById("tipe").value;
-  let jumlah = parseInt(document.getElementById("jumlah").value);
-  let tanggal = new Date().toLocaleDateString();
+function tambahData(){
+  const nama = document.getElementById("nama").value.trim();
+  const jenis = document.getElementById("jenis").value.trim();
+  const tipe = document.getElementById("tipe").value;
+  const jumlah = parseInt(document.getElementById("jumlah").value);
+  const tanggal = new Date().toLocaleDateString();
 
-  if (!nama || !jumlah) {
-    alert("Isi data dulu!");
-    return;
-  }
+  if(!nama || !jumlah){ alert("Isi data dulu!"); return; }
 
-  let stok = hitungStok();
-
-  if (tipe === "keluar") {
-    if (!stok[nama] || stok[nama] < jumlah) {
+  const stok = hitungStok();
+  if(tipe==="keluar"){
+    if(!stok[nama] || stok[nama] < jumlah){
       alert("Stok tidak cukup!");
       return;
     }
   }
 
-  data.push({ nama, jenis, tipe, jumlah, tanggal });
+  data.push({nama, jenis, tipe, jumlah, tanggal});
   localStorage.setItem("stok", JSON.stringify(data));
+
+  // clear input
+  document.getElementById("nama").value="";
+  document.getElementById("jenis").value="";
+  document.getElementById("jumlah").value="";
+
   render();
 }
 
-function hapusItem(index) {
-  if (confirm("Hapus data ini?")) {
-    data.splice(index, 1);
+function hapusItem(i){
+  if(confirm("Hapus data ini?")){
+    data.splice(i,1);
     localStorage.setItem("stok", JSON.stringify(data));
     render();
   }
 }
 
-function resetData() {
-  if (confirm("Hapus semua data?")) {
+function resetData(){
+  if(confirm("Hapus semua data?")){
     localStorage.removeItem("stok");
-    data = [];
+    data=[];
     render();
   }
 }
 
 render();
 
-if ('serviceWorker' in navigator) {
+if('serviceWorker' in navigator){
   navigator.serviceWorker.register('service-worker.js');
 }
 </script>
