@@ -10,77 +10,80 @@
 <style>
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: #eef2f7;
+  background: #f5f7fb;
   margin: 0;
-  padding: 10px;
-}
-
-h2 {
-  text-align: center;
-  font-size: 20px;
-}
-
-h3 {
-  margin-top: 15px;
-  font-size: 16px;
-}
-
-.card {
-  background: #fff;
   padding: 12px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  margin-bottom: 10px;
 }
 
-/* Biar tidak terlalu lebar di HP */
 .container {
   max-width: 500px;
   margin: auto;
 }
 
-/* Input rapi */
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* CARD HALUS */
+.card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 12px;
+}
+
+/* INPUT MODERN */
 input, select {
   width: 100%;
   padding: 12px;
   margin-top: 8px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  border-radius: 10px;
+  border: 1px solid #ddd;
   font-size: 14px;
+  background: #fafafa;
 }
 
-/* Tombol besar (enak ditekan jempol) */
+/* TOMBOL */
 button {
   width: 100%;
   padding: 14px;
-  margin-top: 10px;
-  border-radius: 10px;
-  background: #28a745;
+  margin-top: 12px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #28a745, #1e7e34);
   color: white;
   font-size: 16px;
   border: none;
 }
 
-/* List */
+/* LIST */
 .item {
   background: white;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px;
+  border-radius: 12px;
   margin-top: 8px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
 
-/* Stok besar */
+/* STOK */
 .stok {
   font-size: 18px;
   font-weight: bold;
   color: #28a745;
 }
 
-/* RESPONSIVE (HP banget) */
-.row {
-  display: flex;
-  flex-direction: column; /* penting biar tidak berantakan */
+/* SPACING HALUS */
+.label {
+  font-size: 13px;
+  margin-top: 10px;
+  color: #666;
 }
 </style>
 </head>
@@ -89,21 +92,24 @@ button {
 
 <div class="container">
 
-<h2>📦 Stok Warung</h2>
+<h2>📦 Stok Barang Warung</h2>
 
 <div class="card">
 
-  <div class="row">
-    <input id="nama" placeholder="Nama Barang">
-    <input id="jenis" placeholder="Jenis Barang">
-  </div>
+  <div class="label">Nama Barang</div>
+  <input id="nama">
+
+  <div class="label">Jenis Barang</div>
+  <input id="jenis">
   
+  <div class="label">Tipe</div>
   <select id="tipe">
     <option value="masuk">Barang Masuk</option>
     <option value="keluar">Barang Keluar</option>
   </select>
 
-  <input id="jumlah" type="number" placeholder="Jumlah">
+  <div class="label">Jumlah</div>
+  <input id="jumlah" type="number">
   
   <button onclick="tambahData()">Simpan</button>
 </div>
@@ -150,7 +156,7 @@ function render() {
     riwayat.innerHTML += `
       <div class="item">
         <b>${item.nama}</b><br>
-        ${item.jenis} | ${item.tanggal}<br>
+        ${item.jenis} • ${item.tanggal}<br>
         ${item.tipe} : ${item.jumlah}
       </div>
     `;
@@ -185,7 +191,6 @@ function tambahData() {
 
 render();
 
-// offline
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
