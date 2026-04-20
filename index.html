@@ -9,36 +9,70 @@
 
 <style>
 body {
-  font-family: Arial;
-  background: #f0f2f5;
+  font-family: 'Segoe UI', sans-serif;
+  background: #eef2f7;
   padding: 15px;
+  margin: 0;
 }
-h2 { text-align: center; }
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+h3 {
+  margin-top: 20px;
+  color: #444;
+}
+
 .card {
-  background: white;
+  background: #ffffff;
   padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 10px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-input, select, button {
+
+input, select {
   width: 100%;
   padding: 10px;
-  margin-top: 5px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
 }
+
 button {
-  background: green;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #28a745;
   color: white;
+  font-size: 16px;
   border: none;
 }
+
 .item {
-  background: #fff;
-  padding: 10px;
-  border-radius: 8px;
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
   margin-top: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
+
 .stok {
-  font-size: 18px;
-  color: green;
+  font-size: 20px;
+  font-weight: bold;
+  color: #28a745;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.row input {
+  flex: 1;
 }
 </style>
 </head>
@@ -48,8 +82,11 @@ button {
 <h2>📦 Stok Barang Warung</h2>
 
 <div class="card">
-  <input id="nama" placeholder="Nama Barang">
-  <input id="jenis" placeholder="Jenis Barang">
+
+  <div class="row">
+    <input id="nama" placeholder="Nama Barang">
+    <input id="jenis" placeholder="Jenis Barang">
+  </div>
   
   <select id="tipe">
     <option value="masuk">Barang Masuk</option>
