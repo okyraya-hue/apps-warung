@@ -13,9 +13,7 @@ body {
   background: #f0f2f5;
   padding: 15px;
 }
-h2 {
-  text-align: center;
-}
+h2 { text-align: center; }
 .card {
   background: white;
   padding: 15px;
@@ -117,7 +115,6 @@ function tambahData() {
   let jenis = document.getElementById("jenis").value;
   let tipe = document.getElementById("tipe").value;
   let jumlah = parseInt(document.getElementById("jumlah").value);
-
   let tanggal = new Date().toLocaleDateString();
 
   if (!nama || !jumlah) {
@@ -141,7 +138,7 @@ function tambahData() {
 
 render();
 
-// aktifkan offline
+// offline
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
