@@ -22,68 +22,71 @@ body {
 
 h2 {
   text-align: center;
-  margin-bottom: 15px;
 }
 
 h3 {
   margin-top: 20px;
-  margin-bottom: 8px;
-  color: #333;
 }
 
-/* CARD HALUS */
+/* CARD */
 .card {
   background: #fff;
   padding: 15px;
   border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  margin-bottom: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-/* INPUT MODERN */
+/* GRID FORM */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* FULL WIDTH */
+.full {
+  grid-column: span 2;
+}
+
+/* INPUT */
 input, select {
   width: 100%;
   padding: 12px;
-  margin-top: 8px;
   border-radius: 10px;
   border: 1px solid #ddd;
   font-size: 14px;
-  background: #fafafa;
 }
 
-/* TOMBOL */
+/* BUTTON */
 button {
-  width: 100%;
   padding: 14px;
-  margin-top: 12px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #28a745, #1e7e34);
+  background: #28a745;
   color: white;
   font-size: 16px;
   border: none;
 }
 
-/* LIST */
+/* ITEM */
 .item {
   background: white;
   padding: 12px;
   border-radius: 12px;
-  margin-top: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  margin-top: 10px;
 }
 
 /* STOK */
 .stok {
-  font-size: 18px;
   font-weight: bold;
-  color: #28a745;
+  color: green;
 }
 
-/* SPACING HALUS */
-.label {
-  font-size: 13px;
-  margin-top: 10px;
-  color: #666;
+/* FOOTER */
+footer {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 20px;
+  color: #777;
 }
 </style>
 </head>
@@ -92,33 +95,36 @@ button {
 
 <div class="container">
 
-<h2>📦 Stok Barang Warung</h2>
+<h2>📦 Stok Warung</h2>
 
 <div class="card">
 
-  <div class="label">Nama Barang</div>
-  <input id="nama">
+  <div class="grid">
+    <input id="nama" placeholder="Nama Barang">
+    <input id="jenis" placeholder="Jenis Barang">
 
-  <div class="label">Jenis Barang</div>
-  <input id="jenis">
-  
-  <div class="label">Tipe</div>
-  <select id="tipe">
-    <option value="masuk">Barang Masuk</option>
-    <option value="keluar">Barang Keluar</option>
-  </select>
+    <select id="tipe" class="full">
+      <option value="masuk">Barang Masuk</option>
+      <option value="keluar">Barang Keluar</option>
+    </select>
 
-  <div class="label">Jumlah</div>
-  <input id="jumlah" type="number">
-  
-  <button onclick="tambahData()">Simpan</button>
+    <input id="jumlah" type="number" placeholder="Jumlah" class="full">
+
+    <button onclick="tambahData()" class="full">Simpan</button>
+  </div>
+
 </div>
 
-<h3>📊 Stok Saat Ini</h3>
+<h3>📊 Stok</h3>
 <div id="stokList"></div>
 
 <h3>📜 Riwayat</h3>
 <div id="riwayat"></div>
+
+<footer>
+  Web Stok Warung UMKM<br>
+  Oktavian Alyandra, S.Kom
+</footer>
 
 </div>
 
@@ -195,9 +201,6 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
 </script>
-<footer style="background:#fff; border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,0.05);">
-  <b>Web Stok Warung UMKM</b><br>
-  <small>Oktavian Alyandra, S.Kom</small>
-</footer>
+
 </body>
 </html>
