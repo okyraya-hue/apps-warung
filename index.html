@@ -20,15 +20,8 @@ body {
   margin: auto;
 }
 
-h2 {
-  text-align: center;
-}
+h2 { text-align: center; }
 
-h3 {
-  margin-top: 20px;
-}
-
-/* CARD */
 .card {
   background: #fff;
   padding: 15px;
@@ -36,26 +29,22 @@ h3 {
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-/* GRID RESPONSIVE */
 .grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
 }
 
-/* 2 kolom hanya di layar besar */
 @media (min-width: 500px) {
   .grid {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-/* FULL WIDTH */
 .full {
   grid-column: span 2;
 }
 
-/* INPUT */
 input, select {
   width: 100%;
   padding: 14px;
@@ -65,32 +54,30 @@ input, select {
   box-sizing: border-box;
 }
 
-/* BUTTON */
 button {
   padding: 14px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #28a745, #1e7e34);
   color: white;
   font-size: 16px;
   border: none;
 }
 
-/* ITEM */
+.btn-simpan { background: #28a745; }
+.btn-reset { background: #6c757d; }
+.btn-hapus { background: red; }
+
 .item {
   background: white;
   padding: 12px;
   border-radius: 12px;
   margin-top: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
 
-/* STOK */
 .stok {
   font-weight: bold;
   color: green;
 }
 
-/* FOOTER */
 footer {
   text-align: center;
   font-size: 12px;
@@ -107,7 +94,6 @@ footer {
 <h2>📦 Stok Warung</h2>
 
 <div class="card">
-
   <div class="grid">
     <input id="nama" placeholder="Nama Barang">
     <input id="jenis" placeholder="Jenis Barang">
@@ -119,9 +105,9 @@ footer {
 
     <input id="jumlah" type="number" placeholder="Jumlah" class="full">
 
-    <button onclick="tambahData()" class="full">Simpan</button>
+    <button onclick="tambahData()" class="full btn-simpan">Simpan</button>
+    <button onclick="resetData()" class="full btn-reset">Reset Semua</button>
   </div>
-
 </div>
 
 <h3>📊 Stok</h3>
@@ -167,12 +153,13 @@ function render() {
     `;
   }
 
-  data.slice().reverse().forEach(item => {
+  data.slice().reverse().forEach((item, index) => {
     riwayat.innerHTML += `
       <div class="item">
         <b>${item.nama}</b><br>
         ${item.jenis} • ${item.tanggal}<br>
-        ${item.tipe} : ${item.jumlah}
+        ${item.tipe} : ${item.jumlah}<br><br>
+        <button onclick="hapusItem(${data.length - 1 - index})" class="btn-hapus">Hapus</button>
       </div>
     `;
   });
@@ -202,6 +189,22 @@ function tambahData() {
   data.push({ nama, jenis, tipe, jumlah, tanggal });
   localStorage.setItem("stok", JSON.stringify(data));
   render();
+}
+
+function hapusItem(index) {
+  if (confirm("Hapus data ini?")) {
+    data.splice(index, 1);
+    localStorage.setItem("stok", JSON.stringify(data));
+    render();
+  }
+}
+
+function resetData() {
+  if (confirm("Hapus semua data?")) {
+    localStorage.removeItem("stok");
+    data = [];
+    render();
+  }
 }
 
 render();
