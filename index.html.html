@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stok Warung Pintar</title>
+
+<link rel="manifest" href="manifest.json">
+
+<style>
+body {
+  font-family: Arial;
+  background: #f0f2f5;
+  padding: 15px;
+}
+h2 {
+  text-align: center;
+}
+.card {
+  background: white;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+input, select, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+}
+button {
+  background: green;
+  color: white;
+  border: none;
+}
+.item {
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+.stok {
+  font-size: 18px;
+  color: green;
+}
+</style>
+</head>
+
+<body>
+
+<h2>📦 Stok Barang Warung</h2>
+
+<div class="card">
+  <input id="nama" placeholder="Nama Barang">
+  <input id="jenis" placeholder="Jenis Barang">
+  
+  <select id="tipe">
+    <option value="masuk">Barang Masuk</option>
+    <option value="keluar">Barang Keluar</option>
+  </select>
+
+  <input id="jumlah" type="number" placeholder="Jumlah">
+  
+  <button onclick="tambahData()">Simpan</button>
+</div>
+
+<h3>📊 Stok Saat Ini</h3>
+<div id="stokList"></div>
+
+<h3>📜 Riwayat</h3>
+<div id="riwayat"></div>
+
+<script>
+let data = JSON.parse(localStorage.getItem("stok")) || [];
+
+function hitungStok() {
+  let stok = {};
+  data.forEach(item => {
+    if (!stok[item.nama]) stok[item.nama] = 0;
+    if (item.tipe === "masuk") stok[item.nama] += item.jumlah;
+    else stok[item.nama] -= item.jumlah;
+  });
+  return stok;
+}
+
+function render() {
+  let stokData = hitungStok();
+  let stokList = document.getElementById("stokList");
+  let riwayat = document.getElementById("riwayat");
+
+  stokList.innerHTML = "";
+  riwayat.innerHTML = "";
+
+  for (let nama in stokData) {
+    stokList.innerHTML += `
+      <div class="item">
+        <b>${nama}</b><br>
+        <span class="stok">Stok: ${stokData[nama]}</span>
+      </div>
+    `;
+  }
+
+  data.slice().reverse().forEach(item => {
+    riwayat.innerHTML += `
+      <div class="item">
+        <b>${item.nama}</b><br>
+        Jenis: ${item.jenis}<br>
+        Tanggal: ${item.tanggal}<br>
+        Jumlah: ${item.jumlah}<br>
+        Tipe: ${item.tipe}
+      </div>
+    `;
+  });
+}
+
+function tambahData() {
+  let nama = document.getElementById("nama").value;
+  let jenis = document.getElementById("jenis").value;
+  let tipe = document.getElementById("tipe").value;
+  let jumlah = parseInt(document.getElementById("jumlah").value);
+
+  let tanggal = new Date().toLocaleDateString();
+
+  if (!nama || !jumlah) {
+    alert("Isi data dulu!");
+    return;
+  }
+
+  let stok = hitungStok();
+
+  if (tipe === "keluar") {
+    if (!stok[nama] || stok[nama] < jumlah) {
+      alert("Stok tidak cukup!");
+      return;
+    }
+  }
+
+  data.push({ nama, jenis, tipe, jumlah, tanggal });
+  localStorage.setItem("stok", JSON.stringify(data));
+  render();
+}
+
+render();
+
+// aktifkan offline
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
+</script>
+
+</body>
+</html>
