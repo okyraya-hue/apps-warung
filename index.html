@@ -7,10 +7,8 @@
 
 <link rel="manifest" href="manifest.json">
 
-<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Font -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
@@ -34,10 +32,10 @@ body {
   <div class="grid grid-cols-2 gap-3">
 
     <input id="nama" placeholder="Nama Barang"
-      class="col-span-1 p-3 rounded-xl border bg-gray-50">
+      class="p-3 rounded-xl border bg-gray-50">
 
     <input id="jenis" placeholder="Jenis Barang"
-      class="col-span-1 p-3 rounded-xl border bg-gray-50">
+      class="p-3 rounded-xl border bg-gray-50">
 
     <select id="tipe"
       class="col-span-2 p-3 rounded-xl border bg-gray-50">
@@ -63,13 +61,19 @@ body {
 
 <!-- STOK -->
 <div class="max-w-xl mx-auto mt-5">
-  <h3 class="mb-2 font-semibold">📦 Stok</h3>
+  <h3 class="mb-2 font-semibold flex items-center gap-2">
+    <img src="box.png" class="w-5 h-5 object-contain">
+    Stok
+  </h3>
   <div id="stokList" class="space-y-2"></div>
 </div>
 
 <!-- RIWAYAT -->
 <div class="max-w-xl mx-auto mt-5">
-  <h3 class="mb-2 font-semibold">📜 Riwayat</h3>
+  <h3 class="mb-2 font-semibold flex items-center gap-2">
+    <img src="history.png" class="w-5 h-5 object-contain">
+    Riwayat
+  </h3>
   <div id="riwayat" class="space-y-2"></div>
 </div>
 
