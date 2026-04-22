@@ -7,139 +7,74 @@
 
 <link rel="manifest" href="manifest.json">
 
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f3f4f6;
-  margin: 0;
-  padding: 15px;
-}
-
-/* HEADER */
-.header {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.logo {
-  width: 240px;
-  max-width: 90%;
-  margin-bottom: 10px;
-}
-
-.title {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-/* CARD */
-.card {
-  background: #fff;
-  padding: 15px;
-  border-radius: 18px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-}
-
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.full {
-  grid-column: span 2;
-}
-
-/* INPUT */
-input, select {
-  width: 100%;
-  padding: 14px;
-  border-radius: 14px;
-  border: 1px solid #ddd;
-  background: #f9f9f9;
-  font-size: 15px;
-  box-sizing: border-box;
-}
-
-/* BUTTON */
-button {
-  padding: 14px;
-  border-radius: 14px;
-  border: none;
-  font-size: 16px;
-  color: white;
-}
-
-.btn-simpan {
-  background: linear-gradient(135deg, #28a745, #1e7e34);
-}
-
-.btn-reset {
-  background: #ccc;
-  color: #333;
-}
-
-.btn-hapus {
-  background: red;
-}
-
-/* ITEM */
-.item {
-  background: white;
-  padding: 14px;
-  border-radius: 15px;
-  margin-top: 10px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
-}
-
-.stok {
-  font-size: 18px;
-  font-weight: bold;
-  color: green;
-}
-
-/* FOOTER */
-footer {
-  text-align: center;
-  font-size: 12px;
-  margin-top: 20px;
-  color: #777;
+  font-family: 'Poppins', sans-serif;
 }
 </style>
 </head>
 
-<body>
+<body class="bg-gradient-to-br from-purple-600 to-indigo-700 min-h-screen p-4 text-white">
 
-<div class="header">
-  <img src="logo.png" class="logo">
-  <div class="title">Stok Warung UMKM</div>
+<!-- HEADER -->
+<div class="text-center mb-4">
+  <img src="logo.png" class="w-52 mx-auto mb-2">
+  <h1 class="text-xl font-semibold">📦 Stok Warung UMKM</h1>
 </div>
 
-<div class="card">
-  <div class="grid">
-    <input id="nama" placeholder="Nama Barang">
-    <input id="jenis" placeholder="Jenis Barang">
+<!-- FORM -->
+<div class="bg-white text-gray-800 p-4 rounded-2xl shadow-lg max-w-xl mx-auto">
 
-    <select id="tipe" class="full">
+  <div class="grid grid-cols-2 gap-3">
+
+    <input id="nama" placeholder="Nama Barang"
+      class="col-span-1 p-3 rounded-xl border bg-gray-50">
+
+    <input id="jenis" placeholder="Jenis Barang"
+      class="col-span-1 p-3 rounded-xl border bg-gray-50">
+
+    <select id="tipe"
+      class="col-span-2 p-3 rounded-xl border bg-gray-50">
       <option value="masuk">Barang Masuk</option>
       <option value="keluar">Barang Keluar</option>
     </select>
 
-    <input id="jumlah" type="number" placeholder="Jumlah" class="full">
+    <input id="jumlah" type="number" placeholder="Jumlah"
+      class="col-span-2 p-3 rounded-xl border bg-gray-50">
 
-    <button onclick="tambahData()" class="full btn-simpan">Simpan</button>
-    <button onclick="resetData()" class="full btn-reset">Reset Semua</button>
+    <button onclick="tambahData()"
+      class="col-span-2 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl transition transform hover:scale-105">
+      Simpan
+    </button>
+
+    <button onclick="resetData()"
+      class="col-span-2 bg-gray-300 hover:bg-gray-400 text-gray-800 py-3 rounded-xl">
+      Reset Semua
+    </button>
+
   </div>
 </div>
 
-<h3>📦 Stok</h3>
-<div id="stokList"></div>
+<!-- STOK -->
+<div class="max-w-xl mx-auto mt-5">
+  <h3 class="mb-2 font-semibold">📦 Stok</h3>
+  <div id="stokList" class="space-y-2"></div>
+</div>
 
-<h3>📜 Riwayat</h3>
-<div id="riwayat"></div>
+<!-- RIWAYAT -->
+<div class="max-w-xl mx-auto mt-5">
+  <h3 class="mb-2 font-semibold">📜 Riwayat</h3>
+  <div id="riwayat" class="space-y-2"></div>
+</div>
 
-<footer>
+<!-- FOOTER -->
+<footer class="text-center text-sm mt-6 opacity-80">
   Web Stok Warung UMKM<br>
   Oktavian Alyandra, S.Kom
 </footer>
@@ -167,20 +102,26 @@ function render() {
 
   for (let nama in stokData) {
     stokList.innerHTML += `
-      <div class="item">
-        <b>${nama}</b><br>
-        <span class="stok">Stok: ${stokData[nama]}</span>
+      <div class="bg-white text-gray-800 p-4 rounded-xl shadow flex justify-between">
+        <b>${nama}</b>
+        <span class="font-semibold text-green-600">Stok: ${stokData[nama]}</span>
       </div>
     `;
   }
 
   data.slice().reverse().forEach((item, index) => {
     riwayat.innerHTML += `
-      <div class="item">
+      <div class="bg-white text-gray-800 p-4 rounded-xl shadow">
         <b>${item.nama}</b><br>
-        ${item.jenis} • ${item.tanggal}<br>
-        ${item.tipe} : ${item.jumlah}<br><br>
-        <button onclick="hapusItem(${data.length - 1 - index})" class="btn-hapus">Hapus</button>
+        <span class="text-sm text-gray-500">${item.jenis} • ${item.tanggal}</span><br>
+        <span class="${item.tipe === 'masuk' ? 'text-green-600' : 'text-red-500'} font-semibold">
+          ${item.tipe} : ${item.jumlah}
+        </span><br><br>
+
+        <button onclick="hapusItem(${data.length - 1 - index})"
+          class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg">
+          Hapus
+        </button>
       </div>
     `;
   });
